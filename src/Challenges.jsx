@@ -7,7 +7,7 @@ const challenges = [
     id: 1,
     title: 'Security Quiz',
     desc: 'Test your knowledge about social engineering attacks and threats.',
-    icon: '../public/sx.png', // Icon file name in public/
+    icon: '../sx.png', // Icon file name in public/
     path: '/games/security-quiz',
     isNew: false,
     rules: 'Answer 10 questions within 60 seconds each. Correct answers earn 10 points. No penalties for wrong answers.',
@@ -16,7 +16,7 @@ const challenges = [
     id: 2,
     title: 'Cyber Escape Room',
     desc: 'Solve puzzles to escape a hacker’s trap.',
-    icon: '../public/escape-room-icon.png', // Icon file name in public/assets
+    icon: '../escape-room-icon.png', // Icon file name in public/assets
     path: '/games/escape-room',
     isNew: false,
     rules: 'Solve 5 cybersecurity riddles. Each correct solution unlocks the next step. Finish within 15 minutes.',
@@ -25,7 +25,7 @@ const challenges = [
     id: 3,
     title: 'Master the Passwords',
     desc: 'Learn how to create strong and secure passwords while testing your password strength.',
-    icon: '../public/password-icon.png', // Icon file name in public/assets
+    icon: '../password-icon.png', // Icon file name in public/assets
     path: '/games/password-challenge',
     isNew: false,
     rules: 'Enter passwords to evaluate their strength. Learn tips for improving security. No time limit.',
@@ -34,7 +34,7 @@ const challenges = [
     id: 4,
     title: 'Attack Simulator',
     desc: 'React to threats in real-time.',
-    icon: '../public/attack-sim-icon.png', // Icon file name in public/assets
+    icon: '../attack-sim-icon.png', // Icon file name in public/assets
     path: '/games/attack-sim',
     isNew: false,
     rules: 'React to 10 different attack scenarios by choosing the correct action within 10 seconds. Earn 20 points for correct choices.',
@@ -43,7 +43,7 @@ const challenges = [
     id: 5,
     title: 'Hack The Hacker',
     desc: 'Decrypt messages and analyze vulnerabilities.',
-    icon: '../public/hack-the-hacker.png', // Icon file name in public/assets
+    icon: '../hack-the-hacker.png', // Icon file name in public/assets
     path: '/games/hack-hacker',
     isNew: false,
     rules: 'Decrypt 3 messages and identify vulnerabilities. Each task earns 30 points.',
@@ -52,7 +52,7 @@ const challenges = [
     id: 6,
     title: 'Security Resources',
     desc: 'Access articles, tools, and guides to improve your cybersecurity knowledge.',
-    icon: '../public/resources.png', // Icon file name in public/assets
+    icon: '../resources.png', // Icon file name in public/assets
     path: '/resources',
     isNew: false,
     rules: 'Explore resources and tools at your own pace. No points or scoring involved.',
