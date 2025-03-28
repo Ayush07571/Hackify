@@ -1,148 +1,153 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace; /* Hacker-style font */
+  background-color: #1a1a1a; /* Dark theme for consistency */
+  color: #e0e0e0;
+}
+
+/* Escape Room Container */
 .escape-room {
   max-width: 600px;
-  margin: 50px auto;
+  margin: 100px auto; /* Adjusted margin for proper spacing below navbar */
   padding: 25px;
-  background-color: #1a1a1a; /* Dark theme for a hacker vibe */
-  border-radius: 12px; /* Smooth, modern rounded corners */
-  box-shadow: 0 0 25px rgba(0, 255, 0, 0.4); /* Neon green glow effect */
+  background-color: #1a1a1a; /* Hacker vibe */
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.4); /* Neon green glow */
   text-align: center;
   color: #e0e0e0;
-  font-family: 'Courier New', Courier, monospace; /* Hacker-style font */
 }
 
+/* Heading Styling */
 .escape-room h2 {
-  color: #00ff00; /* Neon green heading for emphasis */
+  color: #00ff00; /* Neon green heading */
   margin-bottom: 25px;
   font-size: 30px;
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); /* Glowing text effect */
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); /* Glowing effect */
 }
 
+/* Paragraph Styling */
 .escape-room p {
   font-size: 18px;
   margin-bottom: 25px; /* Consistent spacing */
   line-height: 1.5; /* Better readability */
 }
 
+/* Puzzle Section */
 .puzzle p {
   font-size: 20px;
   margin-bottom: 25px;
-  text-align: left; /* Left-align question text for natural MCQ layout */
-  padding-left: 15px; /* Slight padding for consistent alignment */
+  text-align: left;
+  padding-left: 15px; /* Align with question text */
 }
 
+/* Options Section */
 .options {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Left-align options */
-  gap: 15px; /* Consistent spacing between options */
-  margin-bottom: 25px; /* Space below the options */
-  padding-left: 15px; /* Align with question text */
+  gap: 15px; /* Consistent spacing */
+  margin-bottom: 25px;
+  padding-left: 15px;
 }
 
 .option {
-  background: #333; /* Dark gray background for contrast */
+  background: #333; /* Dark gray background */
   padding: 12px 20px;
   width: 100%; /* Full width for responsiveness */
-  border-radius: 8px; /* Rounded corners for modern design */
+  border-radius: 8px;
   cursor: pointer;
-  border: 1px solid transparent; /* Default border */
-  transition: all 0.3s ease; /* Smooth hover and selection transitions */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  border: 1px solid transparent;
+  transition: all 0.3s ease; /* Smooth transition */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
 }
 
 .option:hover {
-  background: #444; /* Slightly lighter gray for hover effect */
-  border-color: #00ff00; /* Green border on hover */
+  background: #444; /* Light gray hover effect */
+  border-color: #00ff00; /* Green border */
 }
 
 .option.correct {
   background-color: #00ff00; /* Bright green for correct answers */
-  color: black; /* Black text for contrast */
-  border-color: #00ff00; /* Green border for correct answers */
+  color: black;
+  border-color: #00ff00;
 }
 
 .option.incorrect {
   background-color: #ff3333; /* Bright red for incorrect answers */
-  color: white; /* White text for readability */
-  border-color: #ff3333; /* Red border for incorrect answers */
+  color: white;
+  border-color: #ff3333;
 }
 
+/* Buttons */
 .puzzle button {
-  background-color: #00ff00; /* Bright green for buttons */
+  background-color: #00ff00; /* Bright green */
   padding: 12px 30px;
   border: none;
   cursor: pointer;
   font-size: 18px;
-  border-radius: 8px; /* Rounded corners for a modern look */
-  margin-top: 25px; /* Space above the button */
-  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  border-radius: 8px;
+  margin-top: 25px;
+  transition: all 0.3s ease;
 }
 
 .puzzle button:disabled {
-  background: grey; /* Disabled state color */
-  cursor: not-allowed; /* Indicate unclickable button */
+  background: grey; /* Disabled state */
+  cursor: not-allowed;
 }
 
 .puzzle button:hover:not(:disabled) {
-  background-color: #66ff66; /* Lighter green on hover */
+  background-color: #66ff66; /* Lighter green hover */
 }
 
+/* Feedback Styling */
 .feedback {
   font-size: 18px;
-  margin-top: 25px; /* Space between options and feedback */
+  margin-top: 25px;
   font-weight: bold;
   text-align: center;
-  animation: fadeIn 0.3s ease; /* Subtle fade-in for dynamic feedback */
+  animation: fadeIn 0.3s ease; /* Subtle fade-in */
 }
 
 .feedback.correct {
-  color: #00ff00; /* Green feedback for correct answers */
+  color: #00ff00; /* Green feedback */
 }
 
 .feedback.incorrect {
-  color: #ff3333; /* Red feedback for incorrect answers */
+  color: #ff3333; /* Red feedback */
 }
 
+/* Result Section */
 .result {
-  background-color: #222; /* Slightly lighter black for results section */
+  background-color: #222; /* Slightly lighter black */
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0, 255, 0, 0.3); /* Neon green glow for results */
-  color: #00ff00; /* Bright green text */
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.3); /* Neon glow */
+  color: #00ff00;
   text-align: center;
 }
 
 .result button {
-  margin-top: 20px; /* Space between buttons */
+  margin-top: 20px;
   background-color: #00ff00;
-  color: black; /* Black text for contrast */
+  color: black;
   padding: 12px 30px;
   border: none;
   font-size: 18px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: block; /* Ensures proper alignment with other elements */
-  width: 100%; /* Full width of the container */
+  display: block;
+  width: 100%; /* Full width */
 }
 
 .result button:hover {
-  background-color: #66ff66; /* Lighter green on hover */
-}
-
-.back-button {
-  display: block; /* Ensures vertical alignment */
-  margin-top: 15px; /* Space below "Restart Game" */
-  color: #00ff00; /* Green color for the link */
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold; /* Makes the link more prominent */
-  transition: color 0.3s ease; /* Smooth color transition on hover */
-}
-
-.back-button:hover {
-  text-decoration: underline;
-  color: #66ff66; /* Lighter green on hover */
+  background-color: #66ff66; /* Hover effect */
 }
 
 /* Fade-in animation for feedback */
@@ -152,5 +157,90 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+/* Responsive Design for Tablets */
+@media (max-width: 768px) {
+  .escape-room {
+    max-width: 90%; /* Adjust width */
+    margin: 120px auto; /* Adjust spacing below navbar */
+    padding: 20px; /* Reduce padding */
+  }
+
+  .escape-room h2 {
+    font-size: 24px; /* Reduce heading size */
+    margin-bottom: 20px;
+  }
+
+  .escape-room p,
+  .puzzle p {
+    font-size: 16px; /* Adjust text size */
+    margin-bottom: 20px;
+  }
+
+  .options {
+    gap: 10px; /* Reduce gap between options */
+  }
+
+  .option {
+    padding: 10px 15px; /* Adjust padding */
+    font-size: 14px; /* Reduce font size */
+  }
+
+  .puzzle button {
+    font-size: 16px; /* Reduce button text size */
+    padding: 10px 25px; /* Adjust button padding */
+  }
+
+  .result {
+    padding: 20px; /* Reduce padding */
+  }
+
+  .result button {
+    font-size: 16px; /* Adjust button font size */
+    padding: 10px 20px;
+  }
+}
+
+/* Responsive Design for Mobile Phones */
+@media (max-width: 480px) {
+  .escape-room {
+    max-width: 95%; /* Further reduce width */
+    margin: 130px auto; /* Ensure proper spacing below navbar */
+    padding: 15px; /* Reduce padding for smaller screens */
+  }
+
+  .escape-room h2 {
+    font-size: 20px; /* Adjust heading size */
+    margin-bottom: 15px;
+  }
+
+  .escape-room p,
+  .puzzle p {
+    font-size: 14px; /* Adjust text size */
+  }
+
+  .options {
+    gap: 8px; /* Reduce gap */
+  }
+
+  .option {
+    padding: 8px 12px; /* Compact padding */
+    font-size: 12px; /* Smaller font */
+  }
+
+  .puzzle button {
+    font-size: 14px; /* Adjust button font size */
+    padding: 8px 20px; /* Compact button size */
+  }
+
+  .result {
+    padding: 15px; /* Compact padding */
+  }
+
+  .result button {
+    font-size: 14px; /* Adjust button text size */
+    padding: 8px 15px;
   }
 }

@@ -23,14 +23,17 @@ body {
 
 .back-home {
   display: inline-block;
-  margin-bottom: 20px;
+  margin-top: 40px; /* Increased gap from header ribbon */
+  margin-bottom: 30px; /* Additional spacing */
   font-size: 16px;
   color: #00cc00;
   text-decoration: none;
+  position: relative; /* Proper placement */
+  z-index: 1; /* Keep Back button visible above other elements */
 }
 
 .back-home:hover {
-  color:#00cc00 ;
+  color: #00cc00;
   text-decoration: underline;
 }
 
@@ -131,4 +134,92 @@ body {
   font-size: 14px;
   color: #f5f5f5;
   border-top: 1px solid #00cc00;
+}
+
+/* Responsive Design for Tablets */
+@media (max-width: 768px) {
+  .about-content {
+    max-width: 90%; /* Adjust content width for tablets */
+    padding: 15px; /* Reduce padding */
+  }
+
+  .header-section h1 {
+    font-size: 24px; /* Adjust heading size */
+    margin-bottom: 10px;
+  }
+
+  .header-section p {
+    font-size: 16px; /* Adjust paragraph size */
+  }
+
+  .back-home {
+    margin-top: 35px; /* Increased spacing for tablets */
+  }
+
+  .attack-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust grid columns */
+    gap: 10px; /* Reduce gap */
+  }
+
+  .attack-card h3 {
+    font-size: 18px; /* Adjust heading size for cards */
+  }
+
+  .attack-card p {
+    font-size: 14px; /* Adjust paragraph size for cards */
+  }
+
+  .quiz-promo h3 {
+    font-size: 20px; /* Reduce promo heading size */
+  }
+
+  .quiz-promo p {
+    font-size: 14px; /* Adjust paragraph size */
+  }
+}
+
+/* Responsive Design for Mobile Phones */
+@media (max-width: 480px) {
+  .about-content {
+    max-width: 95%; /* Further reduce content width */
+    padding: 10px; /* Compact padding for mobile */
+  }
+
+  .header-section h1 {
+    font-size: 20px; /* Compact heading size */
+  }
+
+  .header-section p {
+    font-size: 14px; /* Adjust paragraph size */
+  }
+
+  .back-home {
+    margin-top: 30px; /* Increased spacing for mobile */
+  }
+
+  .attack-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Compact grid for mobile */
+    gap: 8px; /* Further reduce gap */
+  }
+
+  .attack-card h3 {
+    font-size: 16px; /* Compact heading size for cards */
+  }
+
+  .attack-card p {
+    font-size: 12px; /* Compact paragraph size for cards */
+  }
+
+  .quiz-promo h3 {
+    font-size: 18px; /* Adjust promo heading size */
+  }
+
+  .quiz-promo p {
+    font-size: 12px; /* Compact paragraph size */
+  }
+
+  .start-quiz {
+    font-size: 14px; /* Adjust button text size */
+    padding: 8px 16px; /* Compact button size */
+  }
 }
