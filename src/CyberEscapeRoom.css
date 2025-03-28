@@ -1,0 +1,156 @@
+.escape-room {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 25px;
+  background-color: #1a1a1a; /* Dark theme for a hacker vibe */
+  border-radius: 12px; /* Smooth, modern rounded corners */
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.4); /* Neon green glow effect */
+  text-align: center;
+  color: #e0e0e0;
+  font-family: 'Courier New', Courier, monospace; /* Hacker-style font */
+}
+
+.escape-room h2 {
+  color: #00ff00; /* Neon green heading for emphasis */
+  margin-bottom: 25px;
+  font-size: 30px;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); /* Glowing text effect */
+}
+
+.escape-room p {
+  font-size: 18px;
+  margin-bottom: 25px; /* Consistent spacing */
+  line-height: 1.5; /* Better readability */
+}
+
+.puzzle p {
+  font-size: 20px;
+  margin-bottom: 25px;
+  text-align: left; /* Left-align question text for natural MCQ layout */
+  padding-left: 15px; /* Slight padding for consistent alignment */
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Left-align options */
+  gap: 15px; /* Consistent spacing between options */
+  margin-bottom: 25px; /* Space below the options */
+  padding-left: 15px; /* Align with question text */
+}
+
+.option {
+  background: #333; /* Dark gray background for contrast */
+  padding: 12px 20px;
+  width: 100%; /* Full width for responsiveness */
+  border-radius: 8px; /* Rounded corners for modern design */
+  cursor: pointer;
+  border: 1px solid transparent; /* Default border */
+  transition: all 0.3s ease; /* Smooth hover and selection transitions */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}
+
+.option:hover {
+  background: #444; /* Slightly lighter gray for hover effect */
+  border-color: #00ff00; /* Green border on hover */
+}
+
+.option.correct {
+  background-color: #00ff00; /* Bright green for correct answers */
+  color: black; /* Black text for contrast */
+  border-color: #00ff00; /* Green border for correct answers */
+}
+
+.option.incorrect {
+  background-color: #ff3333; /* Bright red for incorrect answers */
+  color: white; /* White text for readability */
+  border-color: #ff3333; /* Red border for incorrect answers */
+}
+
+.puzzle button {
+  background-color: #00ff00; /* Bright green for buttons */
+  padding: 12px 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 8px; /* Rounded corners for a modern look */
+  margin-top: 25px; /* Space above the button */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.puzzle button:disabled {
+  background: grey; /* Disabled state color */
+  cursor: not-allowed; /* Indicate unclickable button */
+}
+
+.puzzle button:hover:not(:disabled) {
+  background-color: #66ff66; /* Lighter green on hover */
+}
+
+.feedback {
+  font-size: 18px;
+  margin-top: 25px; /* Space between options and feedback */
+  font-weight: bold;
+  text-align: center;
+  animation: fadeIn 0.3s ease; /* Subtle fade-in for dynamic feedback */
+}
+
+.feedback.correct {
+  color: #00ff00; /* Green feedback for correct answers */
+}
+
+.feedback.incorrect {
+  color: #ff3333; /* Red feedback for incorrect answers */
+}
+
+.result {
+  background-color: #222; /* Slightly lighter black for results section */
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.3); /* Neon green glow for results */
+  color: #00ff00; /* Bright green text */
+  text-align: center;
+}
+
+.result button {
+  margin-top: 20px; /* Space between buttons */
+  background-color: #00ff00;
+  color: black; /* Black text for contrast */
+  padding: 12px 30px;
+  border: none;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block; /* Ensures proper alignment with other elements */
+  width: 100%; /* Full width of the container */
+}
+
+.result button:hover {
+  background-color: #66ff66; /* Lighter green on hover */
+}
+
+.back-button {
+  display: block; /* Ensures vertical alignment */
+  margin-top: 15px; /* Space below "Restart Game" */
+  color: #00ff00; /* Green color for the link */
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold; /* Makes the link more prominent */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.back-button:hover {
+  text-decoration: underline;
+  color: #66ff66; /* Lighter green on hover */
+}
+
+/* Fade-in animation for feedback */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

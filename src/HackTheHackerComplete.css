@@ -1,0 +1,227 @@
+/* src/HackTheHackerComplete.css */
+.hack-the-hacker-complete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #0f172a; /* Matches the dark theme of HackTheHacker */
+    color: #fff;
+    padding: 16px;
+  }
+  
+  .complete-container {
+    width: 100%;
+    max-width: 448px;
+  }
+  
+  .complete-card {
+    background-color: #1e293b;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    padding-bottom: 8px;
+    text-align: center;
+    padding: 24px;
+  }
+  
+  .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background-color: rgba(59, 130, 246, 0.2); /* Primary color with opacity */
+  }
+  
+  .terminal-icon {
+    width: 40px;
+    height: 40px;
+    color: #3b82f6; /* Primary color */
+  }
+  
+  .card-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .card-subtitle {
+    color: #9ca3af;
+  }
+  
+  .card-content {
+    padding: 0 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  
+  .achievement-box {
+    border-radius: 8px;
+    background-color: rgba(31, 41, 55, 0.5);
+    padding: 16px;
+  }
+  
+  .achievement-label {
+    font-size: 14px;
+    color: #9ca3af;
+  }
+  
+  .achievement-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3b82f6; /* Primary color */
+  }
+  
+  .skills-box {
+    border-radius: 8px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    background-color: rgba(59, 130, 246, 0.1);
+    padding: 16px;
+  }
+  
+  .skills-title {
+    font-weight: 500;
+    color: #3b82f6;
+  }
+  
+  .skills-list {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #d1d5db;
+    text-align: left;
+    list-style: none;
+    padding-left: 16px;
+  }
+  
+  .skills-list li {
+    position: relative;
+  }
+  
+  .skills-list li::before {
+    content: "•";
+    position: absolute;
+    left: -16px;
+  }
+  
+  .points-text {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+  
+  .card-footer {
+    padding: 0 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .share-btn {
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid #6b7280;
+    background: transparent;
+    color: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .share-btn:hover {
+    background-color: rgba(107, 114, 128, 0.1);
+  }
+  
+  .action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .play-again-btn,
+  .home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .play-again-btn {
+    border: 1px solid #6b7280;
+    background: transparent;
+    color: #fff;
+  }
+  
+  .play-again-btn:hover {
+    background-color: rgba(107, 114, 128, 0.1);
+  }
+  
+  .home-btn {
+    background-color: #3b82f6;
+    color: #fff;
+  }
+  
+  .home-btn:hover {
+    background-color: #2563eb;
+  }
+  
+  .btn-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #fff;
+    padding: 16px;
+  }
+  
+  .loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .loading-icon {
+    width: 48px;
+    height: 48px;
+    color: #3b82f6;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .loading-text {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
