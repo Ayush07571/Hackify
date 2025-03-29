@@ -10,7 +10,7 @@ const challenges = [
     icon: '../sx.png', // Icon file name in public/
     path: '/games/security-quiz',
     isNew: false,
-    rules: 'Answer 10 questions within 60 seconds each. Correct answers earn 10 points. No penalties for wrong answers.',
+    rules: 'Answer 10 Cyber Security based questions. Correct answers earn 10 points. No penalties for wrong answers.',
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const challenges = [
     icon: '../escape-room-icon.png', // Icon file name in public/assets
     path: '/games/escape-room',
     isNew: false,
-    rules: 'Solve 5 cybersecurity riddles. Each correct solution unlocks the next step. Finish within 15 minutes.',
+    rules: 'Solve 5 cybersecurity riddles. Each correct solution unlocks the next step. Finish within 2 minutes.',
   },
   {
     id: 3,

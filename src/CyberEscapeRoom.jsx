@@ -100,7 +100,7 @@ function CyberEscapeRoom() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [questionsAsked, setQuestionsAsked] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
+  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes
   const [completed, setCompleted] = useState(false);
   const [timeTaken, setTimeTaken] = useState(0);
 
