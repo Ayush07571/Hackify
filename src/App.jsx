@@ -11,7 +11,7 @@ import PasswordChallenge from './PasswordChallenge';
 import AttackSimulator from './AttackSimulator';
 import HackTheHacker from './HackTheHacker';
 import HackTheHackerComplete from './HackTheHackerComplete';
-import './App.css';
+import './app.css';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
