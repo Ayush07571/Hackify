@@ -104,6 +104,18 @@ body {
   color: #ff3333; /* Red for incorrect feedback */
 }
 
+.button-container {
+  display: flex;
+  flex-direction: column;  /* Stack items vertically */
+  align-items: center;     /* Center items horizontally */
+  gap: 15px;               /* Add spacing between items */
+  margin-top: 20px;        /* Adds space above the container */
+}
+
+.back-button{
+  margin-top: 2px;
+  color: #00cc00;
+}
 /* Responsive Design for Tablets */
 @media (max-width: 768px) {
   .attack-simulator {

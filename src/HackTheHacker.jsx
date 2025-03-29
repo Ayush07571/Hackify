@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./HackTheHacker.css";
 
@@ -125,50 +125,23 @@ function HackTheHacker() {
   const [isCorrect, setIsCorrect] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [completedChallenges, setCompletedChallenges] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [terminalHistory, setTerminalHistory] = useState([]);
+  const [showQuizSummary, setShowQuizSummary] = useState(false);
+  const [attemptedChallenges, setAttemptedChallenges] = useState([]);
 
-  // Load progress from localStorage
-  useEffect(() => {
-    const savedProgress = localStorage.getItem("hackTheHackerProgress");
-    if (savedProgress) {
-      const progress = JSON.parse(savedProgress);
-      setCompletedChallenges(progress.completedChallenges || []);
-      setCurrentChallengeIndex(progress.currentChallengeIndex || 0);
-    }
-    setLoading(false);
-  }, []);
-
-  // Save progress to localStorage
-  useEffect(() => {
-    if (!loading) {
-      localStorage.setItem(
-        "hackTheHackerProgress",
-        JSON.stringify({
-          completedChallenges,
-          currentChallengeIndex,
-        })
-      );
-
-      // Award badges based on progress
-      const existingBadges = JSON.parse(localStorage.getItem("userBadges") || "[]");
-      if (completedChallenges.length >= 3 && !existingBadges.includes("ethical_hacker")) {
-        localStorage.setItem("userBadges", JSON.stringify([...existingBadges, "ethical_hacker"]));
-
-        // Update user points
-        const currentPoints = Number.parseInt(localStorage.getItem("userPoints") || "0");
-        localStorage.setItem("userPoints", (currentPoints + 400).toString());
-      }
-    }
-  }, [completedChallenges, currentChallengeIndex, loading]);
-
-  const currentChallenge = challenges[currentChallengeIndex];
+  const currentChallenge = challenges[currentChallengeIndex] || challenges[0];
   const progress = (completedChallenges.length / challenges.length) * 100;
 
   const handleSubmitAnswer = () => {
-    if (!userInput) return;
+    if (!userInput && currentChallenge.type !== "terminal") return;
 
     setIsAnswered(true);
+
+    // Handle the terminal type differently as it requires special handling
+    if (currentChallenge.type === "terminal" && !userInput) {
+      setIsCorrect(false);
+      return;
+    }
 
     // Check if answer is correct (case insensitive)
     const isCorrectAnswer = userInput.toLowerCase().trim() === currentChallenge.solution.toLowerCase().trim();
@@ -176,42 +149,81 @@ function HackTheHacker() {
 
     if (isCorrectAnswer && !completedChallenges.includes(currentChallenge.id)) {
       setCompletedChallenges([...completedChallenges, currentChallenge.id]);
-
-      // Award badge if all challenges are solved
-      if (completedChallenges.length + 1 === challenges.length) {
-        const existingBadges = JSON.parse(localStorage.getItem("userBadges") || "[]");
-        if (!existingBadges.includes("master_hacker")) {
-          localStorage.setItem("userBadges", JSON.stringify([...existingBadges, "master_hacker"]));
-
-          // Update user points
-          const currentPoints = Number.parseInt(localStorage.getItem("userPoints") || "0");
-          localStorage.setItem("userPoints", (currentPoints + 600).toString());
-        }
-      }
+    }
+    
+    // Track attempted challenges regardless of correctness
+    if (!attemptedChallenges.includes(currentChallenge.id)) {
+      setAttemptedChallenges([...attemptedChallenges, currentChallenge.id]);
     }
   };
 
   const handleNextChallenge = () => {
     if (currentChallengeIndex < challenges.length - 1) {
       setCurrentChallengeIndex(currentChallengeIndex + 1);
-      setUserInput("");
-      setIsAnswered(false);
-      setIsCorrect(false);
-      setShowHint(false);
-      setTerminalHistory([]);
-    } else if (completedChallenges.length === challenges.length) {
-      // All challenges completed
-      navigate("/games/hack-hacker/complete");
+      resetChallengeState();
+    } else {
+      // Show summary when all challenges are attempted
+      setShowQuizSummary(true);
     }
   };
+
   const handlePreviousChallenge = () => {
     if (currentChallengeIndex > 0) {
       setCurrentChallengeIndex(currentChallengeIndex - 1);
+      resetChallengeState();
+    }
+  };
+
+  // Extract the challenge state reset logic to a separate function
+  const resetChallengeState = () => {
+    setUserInput("");
+    setIsAnswered(false);
+    setIsCorrect(false);
+    setShowHint(false);
+    setTerminalHistory([]);
+  };
+
+  const handleFinishQuiz = () => {
+    setShowQuizSummary(true);
+  };
+
+  // Find the first incorrect or unattempted challenge
+  const findFirstIncorrectChallenge = () => {
+    for (let i = 0; i < challenges.length; i++) {
+      if (!completedChallenges.includes(challenges[i].id)) {
+        return i;
+      }
+    }
+    // If all are correct, return 0
+    return 0;
+  };
+
+  const handleCompleteQuiz = () => {
+    // If all answers are correct, navigate to complete page
+    if (completedChallenges.length === challenges.length) {
+      navigate("/games/hack-hacker/complete");
+    } else {
+      // Find the first incorrect challenge
+      const firstIncorrectIndex = findFirstIncorrectChallenge();
+      
+      // Reset for next attempt
+      setShowQuizSummary(false);
+      setCurrentChallengeIndex(firstIncorrectIndex);
+      resetChallengeState();
+    }
+  };
+
+  const handleResetProgress = () => {
+    if (window.confirm("Are you sure you want to reset your progress? This cannot be undone.")) {
+      setCompletedChallenges([]);
+      setAttemptedChallenges([]);
+      setCurrentChallengeIndex(0);
       setUserInput("");
       setIsAnswered(false);
       setIsCorrect(false);
       setShowHint(false);
       setTerminalHistory([]);
+      setShowQuizSummary(false);
     }
   };
 
@@ -229,31 +241,31 @@ function HackTheHacker() {
         response = currentChallenge.content.files.join("\n");
       } else if (command.startsWith("cat ")) {
         const fileName = command.substring(4).trim();
-        const fileContent = currentChallenge.content.fileContents[fileName];
-        response = fileContent ? fileContent : `File not found: ${fileName}`;
+        
+        // Improved file path handling for nested files
+        if (fileName.includes("/")) {
+          const fullPath = fileName;
+          const fileContent = currentChallenge.content.fileContents[fullPath];
+          response = fileContent ? fileContent : `File not found: ${fileName}`;
+        } else {
+          const fileContent = currentChallenge.content.fileContents[fileName];
+          response = fileContent ? fileContent : `File not found: ${fileName}`;
+        }
       } else if (command === "pwd") {
         response = currentChallenge.content.currentDirectory;
       } else if (command.startsWith("cd ")) {
-        response = "Directory changed (simulated)";
+        const dirName = command.substring(3).trim();
+        if (dirName.startsWith(".")) {
+          response = `Changed directory to: ${currentChallenge.content.currentDirectory}/${dirName}`;
+        } else {
+          response = `Changed directory to: ${dirName}`;
+        }
       } else {
         response = `Command not found: ${command}`;
       }
 
       setTerminalHistory([...terminalHistory, `$ ${command}`, response]);
       setUserInput("");
-    }
-  };
-
-  const handleResetProgress = () => {
-    if (window.confirm("Are you sure you want to reset your progress? This cannot be undone.")) {
-      localStorage.removeItem("hackTheHackerProgress");
-      setCompletedChallenges([]);
-      setCurrentChallengeIndex(0);
-      setUserInput("");
-      setIsAnswered(false);
-      setIsCorrect(false);
-      setShowHint(false);
-      setTerminalHistory([]);
     }
   };
 
@@ -315,9 +327,7 @@ function HackTheHacker() {
               <div>
                 <button
                   onClick={() => {
-                    setUserInput("");
                     setIsAnswered(true);
-                    setShowHint(false);
                   }}
                   className="submit-final-btn"
                 >
@@ -334,6 +344,11 @@ function HackTheHacker() {
                     onChange={(e) => setUserInput(e.target.value)}
                     placeholder="Enter your answer"
                     className="answer-input"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSubmitAnswer();
+                      }
+                    }}
                   />
                   <button onClick={handleSubmitAnswer} className="submit-btn">
                     Submit
@@ -345,88 +360,137 @@ function HackTheHacker() {
         );
 
       case "decrypt":
-        return (
-          <div className="challenge-content">
-            <div className="challenge-box">
-              <div className="challenge-label">Encrypted message:</div>
-              <div className="challenge-text">{currentChallenge.content.encryptedMessage}</div>
-              {currentChallenge.content.additionalInfo && (
-                <div className="challenge-info">
-                  <span className="info-label">Additional info:</span>{" "}
-                  {currentChallenge.content.additionalInfo}
-                </div>
-              )}
-            </div>
-            <div className="input-section">
-              <div className="input-label">Enter the decrypted message:</div>
-              <input
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
-                placeholder="Type your answer here"
-                className="challenge-input"
-              />
-            </div>
-          </div>
-        );
-
       case "file":
-        return (
-          <div className="challenge-content">
-            <div className="challenge-box">
-              <div className="challenge-header">
-                <FileText />
-                <div className="challenge-label">{currentChallenge.content.fileName}</div>
-              </div>
-              <div className="separator"></div>
-              <div className="challenge-text">{currentChallenge.content.fileContent}</div>
-            </div>
-            <div className="input-section">
-              <div className="input-label">Enter the hidden information:</div>
-              <input
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
-                placeholder="Type your answer here"
-                className="challenge-input"
-              />
-            </div>
-          </div>
-        );
-
       case "network":
         return (
           <div className="challenge-content">
             <div className="challenge-box">
-              <div className="challenge-header">
-                <Search />
-                <div className="challenge-label">Network Traffic Analysis</div>
-              </div>
-              <div className="separator"></div>
-              <div className="challenge-text">{currentChallenge.content.trafficData}</div>
+              {currentChallenge.type === "decrypt" && (
+                <>
+                  <div className="challenge-label">Encrypted message:</div>
+                  <div className="challenge-text">{currentChallenge.content.encryptedMessage}</div>
+                  {currentChallenge.content.additionalInfo && (
+                    <div className="challenge-info">
+                      <span className="info-label">Additional info:</span>{" "}
+                      {currentChallenge.content.additionalInfo}
+                    </div>
+                  )}
+                </>
+              )}
+              
+              {currentChallenge.type === "file" && (
+                <>
+                  <div className="challenge-header">
+                    <FileText />
+                    <div className="challenge-label">{currentChallenge.content.fileName}</div>
+                  </div>
+                  <div className="separator"></div>
+                  <div className="challenge-text">{currentChallenge.content.fileContent}</div>
+                </>
+              )}
+              
+              {currentChallenge.type === "network" && (
+                <>
+                  <div className="challenge-header">
+                    <Search />
+                    <div className="challenge-label">Network Traffic Analysis</div>
+                  </div>
+                  <div className="separator"></div>
+                  <div className="challenge-text">{currentChallenge.content.trafficData}</div>
+                </>
+              )}
             </div>
+            
             <div className="input-section">
-              <div className="input-label">Enter your findings:</div>
+              <div className="input-label">
+                {currentChallenge.type === "decrypt" && "Enter the decrypted message:"}
+                {currentChallenge.type === "file" && "Enter the hidden information:"}
+                {currentChallenge.type === "network" && "Enter your findings:"}
+              </div>
               <input
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 placeholder="Type your answer here"
                 className="challenge-input"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmitAnswer();
+                  }
+                }}
               />
+              <button onClick={handleSubmitAnswer} className="submit-btn">
+                Submit Answer
+              </button>
             </div>
           </div>
         );
 
       default:
-        return null;
+        return (
+          <div className="challenge-error">
+            <p>Challenge type not supported: {currentChallenge.type}</p>
+          </div>
+        );
     }
   };
 
-  if (loading) {
+  // Render the quiz summary
+  const renderQuizSummary = () => {
     return (
-      <div className="loading-container">
-        <div className="loading-content">
-          <Terminal className="loading-icon" />
-          <h1 className="loading-text">Loading challenges...</h1>
+      <div className="quiz-summary">
+        <h2 className="summary-title">Quiz Results</h2>
+        <div className="summary-content">
+          <div className="summary-score">
+            <p className="score-text">
+              You answered <span className="correct-score">{completedChallenges.length}</span> out of{" "}
+              <span className="total-challenges">{challenges.length}</span> challenges correctly!
+            </p>
+          </div>
+          
+          <div className="challenge-list">
+            {challenges.map((challenge, index) => (
+              <div key={challenge.id} className="challenge-item">
+                <div className="challenge-index">{index + 1}.</div>
+                <div className="challenge-name">{challenge.title}</div>
+                <div className="challenge-status">
+                  {completedChallenges.includes(challenge.id) ? (
+                    <CheckCircle className="status-icon correct" />
+                  ) : (
+                    <XCircle className="status-icon incorrect" />
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+        
+        <div className="summary-actions">
+          <button onClick={handleCompleteQuiz} className="summary-btn">
+            {completedChallenges.length === challenges.length 
+              ? "View Certificate" 
+              : "Try Again"}
+          </button>
+          <button onClick={handleResetProgress} className="reset-btn">
+            Start Over
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  if (showQuizSummary) {
+    return (
+      <div className="hack-the-hacker">
+        <main className="main-content">
+          <div className="container">
+            <div className="header">
+              <Link to="/" className="exit-link">
+                <ArrowLeft /><span>  Back</span>
+              </Link>
+            </div>
+            {renderQuizSummary()}
+          </div>
+        </main>
       </div>
     );
   }
@@ -496,12 +560,13 @@ function HackTheHacker() {
               {!isAnswered ? (
                 <>
                   <button
-                  onClick={handlePreviousChallenge}
-                  className="previous-btn"
-                  title="Previous Challenge"
-                >
-                  <ArrowLeft />
-                     <span>  Previous Challenge</span> 
+                    onClick={handlePreviousChallenge}
+                    className="previous-btn"
+                    disabled={currentChallengeIndex === 0}
+                    title="Previous Challenge"
+                  >
+                    <ArrowLeft />
+                    <span>  Previous Challenge</span> 
                   </button>
                   <div className="action-buttons">
                     <button
@@ -511,23 +576,41 @@ function HackTheHacker() {
                       Reset Progress
                     </button>
                     <button
-                      onClick={handleSubmitAnswer}
-                      disabled={!userInput && currentChallenge.type !== "terminal"}
-                      className="submit-btn"
+                      onClick={() => setShowHint(!showHint)}
+                      className="hint-btn"
                     >
-                      Submit Answer
+                      {showHint ? "Hide Hint" : "Show Hint"}
                     </button>
+                    {currentChallenge.type !== "terminal" && (
+                      <button
+                        onClick={handleSubmitAnswer}
+                        disabled={!userInput}
+                        className="submit-btn"
+                      >
+                        Submit Answer
+                      </button>
+                    )}
                   </div>
                 </>
               ) : (
-                <button
-                  onClick={handleNextChallenge}
-                  className="next-btn"
-                >
-                  {currentChallengeIndex < challenges.length - 1 || !isCorrect
-                    ? "Next Challenge"
-                    : "Complete All Challenges"}
-                </button>
+                <div className="answered-buttons">
+                  <button
+                    onClick={handleNextChallenge}
+                    className="next-btn"
+                  >
+                    {currentChallengeIndex < challenges.length - 1
+                      ? "Next Challenge"
+                      : "Finish Quiz"}
+                  </button>
+                  {currentChallengeIndex < challenges.length - 1 && (
+                    <button
+                      onClick={handleFinishQuiz}
+                      className="finish-btn"
+                    >
+                      End Quiz Early
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           </div>

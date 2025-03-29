@@ -56,6 +56,39 @@ body {
   margin-bottom: 10px;
 }
 
+.info-section h3 {
+  font-size: 20px;
+  color: #00cc00;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.info-section p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* Stats Section Styling */
+.stats-section {
+  background-color: #1e1e1e;
+  border: 1px solid #00cc00;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.cyber-stats {
+  list-style-type: square;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.cyber-stats li {
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #f5f5f5;
+}
+
 .attack-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -92,6 +125,102 @@ body {
   margin-bottom: 10px;
   font-size: 16px;
   color: #f5f5f5;
+}
+
+/* Resource Section Styling */
+.resources-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.resource-card {
+  padding: 15px;
+  background-color: #1e1e1e;
+  border: 1px solid #00cc00;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.resource-card h3 {
+  font-size: 18px;
+  color: #00cc00;
+  margin-bottom: 8px;
+}
+
+.resource-card p {
+  font-size: 14px;
+  color: #f5f5f5;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.resource-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #1e1e1e;
+  color: #00cc00;
+  border: 1px solid #00cc00;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.resource-link:hover {
+  background-color: #00cc00;
+  color: #121212;
+}
+
+/* Blog Section Styling */
+.blog-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.blog-card {
+  padding: 15px;
+  background-color: #1e1e1e;
+  border: 1px solid #00cc00;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-card h3 {
+  font-size: 18px;
+  color: #00cc00;
+  margin-bottom: 8px;
+}
+
+.blog-card p {
+  font-size: 14px;
+  color: #f5f5f5;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.blog-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #1e1e1e;
+  color: #00cc00;
+  border: 1px solid #00cc00;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.blog-link:hover {
+  background-color: #00cc00;
+  color: #121212;
 }
 
 .quiz-promo {
@@ -156,17 +285,22 @@ body {
     margin-top: 35px; /* Increased spacing for tablets */
   }
 
-  .attack-grid {
+  .attack-grid, .resources-section, .blog-section {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust grid columns */
     gap: 10px; /* Reduce gap */
   }
 
-  .attack-card h3 {
+  .attack-card h3, .resource-card h3, .blog-card h3 {
     font-size: 18px; /* Adjust heading size for cards */
   }
 
-  .attack-card p {
+  .attack-card p, .resource-card p, .blog-card p {
     font-size: 14px; /* Adjust paragraph size for cards */
+  }
+
+  .resource-link, .blog-link {
+    font-size: 14px;
+    padding: 6px 12px;
   }
 
   .quiz-promo h3 {
@@ -175,6 +309,10 @@ body {
 
   .quiz-promo p {
     font-size: 14px; /* Adjust paragraph size */
+  }
+
+  .cyber-stats li {
+    font-size: 14px;
   }
 }
 
@@ -197,17 +335,22 @@ body {
     margin-top: 30px; /* Increased spacing for mobile */
   }
 
-  .attack-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Compact grid for mobile */
+  .attack-grid, .resources-section, .blog-section {
+    grid-template-columns: 1fr; /* Single column for mobile */
     gap: 8px; /* Further reduce gap */
   }
 
-  .attack-card h3 {
+  .attack-card h3, .resource-card h3, .blog-card h3 {
     font-size: 16px; /* Compact heading size for cards */
   }
 
-  .attack-card p {
+  .attack-card p, .resource-card p, .blog-card p {
     font-size: 12px; /* Compact paragraph size for cards */
+  }
+
+  .resource-link, .blog-link {
+    font-size: 12px;
+    padding: 6px 10px;
   }
 
   .quiz-promo h3 {
@@ -221,5 +364,14 @@ body {
   .start-quiz {
     font-size: 14px; /* Adjust button text size */
     padding: 8px 16px; /* Compact button size */
+  }
+
+  .cyber-stats li {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .stats-section {
+    padding: 10px;
   }
 }

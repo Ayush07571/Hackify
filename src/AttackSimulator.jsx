@@ -196,8 +196,12 @@ const AttackSimulator = () => {
               ))}
             </div>
           )}
-          <button className="restart-btn" onClick={restartGame}>Restart Game</button>
-          <Link to="/" className="return-home">Return to Homepage</Link>
+          <div className="button-container">
+            <button className="restart-btn" onClick={restartGame}>Restart Game</button>
+            <Link to="/" className="back-button">
+              Return to Homepage
+            </Link>
+          </div>
         </div>
       ) : feedback ? (
         <p className="feedback">{feedback}</p>
@@ -216,13 +220,18 @@ const AttackSimulator = () => {
               </button>
             ))}
           </div>
-          <button
-            className="submit-btn"
-            onClick={handleSubmit}
-            disabled={!selectedOption}
-          >
-            Submit
-          </button>
+          <div className="button-container">
+            <button
+              className="submit-btn"
+              onClick={handleSubmit}
+              disabled={!selectedOption}
+            >
+              Submit
+            </button>
+            <Link to="/" className="back-button">
+              Return to Homepage
+            </Link>
+          </div>
         </div>
       )}
     </div>
