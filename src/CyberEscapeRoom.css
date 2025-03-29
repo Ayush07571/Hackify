@@ -84,51 +84,25 @@ body {
   border-color: #ff3333;
 }
 
-/* Buttons Container for proper alignment */
-.button-container {
-  display: flex;
-  flex-direction: column; /* Align buttons vertically */
-  align-items: center; /* Center buttons */
-  gap: 15px; /* Add spacing between buttons */
-  margin-top: 20px; /* Space above button container */
-}
-
-/* Buttons Styling */
-button {
+/* Buttons */
+.puzzle button {
   background-color: #00ff00; /* Bright green */
   padding: 12px 30px;
   border: none;
   cursor: pointer;
   font-size: 18px;
   border-radius: 8px;
+  margin-top: 25px;
   transition: all 0.3s ease;
 }
 
-button:disabled {
+.puzzle button:disabled {
   background: grey; /* Disabled state */
   cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
+.puzzle button:hover:not(:disabled) {
   background-color: #66ff66; /* Lighter green hover */
-}
-
-/* Back Button Styling */
-.back-button {
-  background-color: transparent; /* Transparent background */
-  border: 1px solid #00cc00; /* Green border */
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #00cc00;
-  text-decoration: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.back-button:hover {
-  background-color: #00cc00;
-  color: #fff; /* White text on hover */
 }
 
 /* Feedback Styling */
@@ -156,6 +130,39 @@ button:hover:not(:disabled) {
   box-shadow: 0 0 25px rgba(0, 255, 0, 0.3); /* Neon glow */
   color: #00ff00;
   text-align: center;
+}
+
+.result button {
+  margin-top: 20px;
+  background-color: #00ff00;
+  color: black;
+  padding: 12px 30px;
+  border: none;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  width: 100%; /* Full width */
+}
+
+.result button:hover {
+  background-color: #66ff66; /* Hover effect */
+}
+
+.back-button{
+  margin-top: 2px;
+  color: #00cc00;
+}
+
+/* Fade-in animation for feedback */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Responsive Design for Tablets */
@@ -186,15 +193,18 @@ button:hover:not(:disabled) {
     font-size: 14px; /* Reduce font size */
   }
 
-  .button-container {
-    gap: 10px; /* Adjust spacing between buttons */
+  .puzzle button {
+    font-size: 16px; /* Reduce button text size */
+    padding: 10px 25px; /* Adjust button padding */
   }
 
-  button,
-  .back-button {
-    font-size: 16px;
-    padding: 8px 20px;
-    max-width: 200px; /* Adjust button width */
+  .result {
+    padding: 20px; /* Reduce padding */
+  }
+
+  .result button {
+    font-size: 16px; /* Adjust button font size */
+    padding: 10px 20px;
   }
 }
 
@@ -225,14 +235,17 @@ button:hover:not(:disabled) {
     font-size: 12px; /* Smaller font */
   }
 
-  .button-container {
-    gap: 8px; /* Compact spacing for buttons */
+  .puzzle button {
+    font-size: 14px; /* Adjust button font size */
+    padding: 8px 20px; /* Compact button size */
   }
 
-  button,
-  .back-button {
-    font-size: 14px;
-    padding: 6px 15px;
-    max-width: 180px; /* Smaller button width */
+  .result {
+    padding: 15px; /* Compact padding */
+  }
+
+  .result button {
+    font-size: 14px; /* Adjust button text size */
+    padding: 8px 15px;
   }
 }
