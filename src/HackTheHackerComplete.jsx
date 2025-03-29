@@ -1,7 +1,8 @@
+import "./HackTheHackerComplete.css";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
-import "./HackTheHackerComplete.css";
+
 
 // Icons (placeholders; replace with actual icons if desired)
 const Terminal = () => <span>🖥️</span>;
