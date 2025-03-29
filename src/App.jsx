@@ -23,6 +23,7 @@ function App() {
   return (
     <Router>
       <div className="app">
+        <h1 className="heading">Hello</h1>
         <nav className="navbar">
           <Link to="/" className="nav-logo">Hackify</Link>
           <button className="hamburger" onClick={toggleMenu}>
