@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import './CyberEscapeRoom.css';
+import React, { useState, useEffect } from "react";
+import "./CyberEscapeRoom.css";
 
-// Easy Questions
+// ========================
+// Questions Arrays
+// ========================
 const easyQuestions = [
   {
     question: 'You receive an email from "support@yourbank-secure.com" asking to verify your account. What should you do?',
@@ -83,34 +85,52 @@ const hardQuestions = [
   },
 ];
 
-// Utility function to shuffle an array
+// ========================
+// Utility Functions
+// ========================
+
+/**
+ * Shuffles the given array using a random sort.
+ */
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-// Combine and randomize questions
-const combinedQuestions = [
-  ...shuffle(easyQuestions).slice(0, 3), // Pick 3 random Easy questions
-  ...shuffle(mediumQuestions).slice(0, 2), // Pick 2 random Medium questions
-  ...shuffle(hardQuestions).slice(0, 2), // Pick 2 random Hard questions
-];
+/**
+ * Generates a fresh set of combined questions by shuffling and slicing
+ * from the easy, medium, and hard question sets.
+ */
+function generateQuestions() {
+  return [
+    ...shuffle(easyQuestions).slice(0, 3),
+    ...shuffle(mediumQuestions).slice(0, 2),
+    ...shuffle(hardQuestions).slice(0, 2),
+  ];
+}
 
+// ========================
+// CyberEscapeRoom Component
+// ========================
 function CyberEscapeRoom() {
+  const [questions, setQuestions] = useState(generateQuestions());
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [questionsAsked, setQuestionsAsked] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes
+  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes in seconds
   const [completed, setCompleted] = useState(false);
   const [timeTaken, setTimeTaken] = useState(0);
 
+  // Timer effect that counts down every second until time expires or game is completed.
   useEffect(() => {
     if (timeLeft > 0 && !completed) {
-      const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
       return () => clearInterval(timer);
-    } else if (timeLeft === 0) {
-      alert('Time’s up! You failed to escape.');
-      setCompleted(true);
+    } else if (timeLeft === 0 && !completed) {
+      setCompleted(true); // End game when time runs out
+      alert("Time’s up! You failed to escape.");
     }
   }, [timeLeft, completed]);
 
@@ -119,28 +139,38 @@ function CyberEscapeRoom() {
   };
 
   const handleSubmit = () => {
+    // Check if the selected answer is correct
+    const isCorrect =
+      selectedAnswer === questions[currentQuestionIndex].correctAnswer;
+    // Calculate the updated correct count synchronously.
+    const updatedCorrectCount = isCorrect ? correctCount + 1 : correctCount;
+
     setQuestionsAsked((prev) => prev + 1);
 
-    if (selectedAnswer === combinedQuestions[currentQuestionIndex].correctAnswer) {
-      setCorrectCount((prev) => prev + 1);
+    if (isCorrect) {
+      setCorrectCount(updatedCorrectCount);
     }
 
-    const nextIndex = currentQuestionIndex + 1;
-    if (correctCount + 1 >= 5 || nextIndex >= combinedQuestions.length) {
+    // End the game if the user reaches 5 correct answers.
+    if (updatedCorrectCount >= 5) {
       setCompleted(true);
-      setTimeTaken(300 - timeLeft); // Calculate time taken to escape
+      setTimeTaken(120 - timeLeft); // Calculate the time taken.
     } else {
-      setCurrentQuestionIndex(nextIndex % combinedQuestions.length); // Loop through questions
-      setSelectedAnswer(null); // Reset selection
+      // Cycle to the next question.
+      const nextIndex = (currentQuestionIndex + 1) % questions.length;
+      setCurrentQuestionIndex(nextIndex);
+      setSelectedAnswer(null);
     }
   };
 
   const restartGame = () => {
+    // Reset state and generate a new set of shuffled questions.
+    setQuestions(generateQuestions());
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setCorrectCount(0);
     setQuestionsAsked(0);
-    setTimeLeft(300);
+    setTimeLeft(120);
     setCompleted(false);
     setTimeTaken(0);
   };
@@ -148,36 +178,51 @@ function CyberEscapeRoom() {
   return (
     <div className="escape-room">
       <h2>Cyber Escape Room</h2>
-      <p>Time Left: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}</p>
+      <p>
+        Time Left: {Math.floor(timeLeft / 60)}:
+        {(timeLeft % 60).toString().padStart(2, "0")}
+      </p>
 
       {completed ? (
         <div className="result">
-          <h3>{correctCount >= 5 ? 'You Escaped!' : 'Game Over!'}</h3>
-          <p>Final Score: {correctCount} Correct / {questionsAsked} Questions Asked</p>
-          <p>Time Taken: {Math.floor(timeTaken / 60)}:{(timeTaken % 60).toString().padStart(2, '0')}</p>
-          <button onClick={restartGame}>Restart Game</button>
-          <a href="/" className="back-button">Back to Homepage</a>
+          <h3>{correctCount >= 5 ? "You Escaped!" : "Game Over!"}</h3>
+          <p>
+            Final Score: {correctCount} Correct / {questionsAsked} Questions
+            Asked
+          </p>
+          <p>
+            Time Taken: {Math.floor(timeTaken / 60)}:
+            {(timeTaken % 60).toString().padStart(2, "0")}
+          </p>
+          <div className="button-container">
+            <button onClick={restartGame}>Restart Game</button>
+            <a href="/" className="back-button">
+              Back to Homepage
+            </a>
+          </div>
         </div>
       ) : (
         <div className="puzzle">
-          <p><strong>{combinedQuestions[currentQuestionIndex].question}</strong></p>
+          <p>
+            <strong>{questions[currentQuestionIndex].question}</strong>
+          </p>
           <div className="options">
-            {combinedQuestions[currentQuestionIndex].options.map((option, index) => {
-              let optionClass = '';
-
+            {questions[currentQuestionIndex].options.map((option, index) => {
+              let optionClass = "";
               if (selectedAnswer) {
-                if (option === combinedQuestions[currentQuestionIndex].correctAnswer) {
-                  optionClass = 'correct';
+                if (option === questions[currentQuestionIndex].correctAnswer) {
+                  optionClass = "correct";
                 } else if (option === selectedAnswer) {
-                  optionClass = 'incorrect';
+                  optionClass = "incorrect";
                 }
               }
-
               return (
                 <div
                   key={index}
                   className={`option ${optionClass}`}
-                  onClick={() => !selectedAnswer && handleOptionSelect(option)}
+                  onClick={() =>
+                    !selectedAnswer && handleOptionSelect(option)
+                  }
                 >
                   {option}
                 </div>
@@ -185,13 +230,27 @@ function CyberEscapeRoom() {
             })}
           </div>
           {selectedAnswer && (
-            <p className={`feedback ${selectedAnswer === combinedQuestions[currentQuestionIndex].correctAnswer ? 'correct' : 'incorrect'}`}>
-              {selectedAnswer === combinedQuestions[currentQuestionIndex].correctAnswer
-                ? 'Correct Answer!'
-                : 'Wrong Answer!'}
+            <p
+              className={`feedback ${
+                selectedAnswer === questions[currentQuestionIndex].correctAnswer
+                  ? "correct"
+                  : "incorrect"
+              }`}
+            >
+              {selectedAnswer === questions[currentQuestionIndex].correctAnswer
+                ? "Correct Answer!"
+                : "Wrong Answer!"}
             </p>
           )}
-          <button onClick={handleSubmit} disabled={!selectedAnswer}>Submit</button>
+
+          <div className="button-container">
+            <button onClick={handleSubmit} disabled={!selectedAnswer}>
+              Submit
+            </button>
+            <a href="/" className="back-button">
+              Back to Homepage
+            </a>
+          </div>
         </div>
       )}
     </div>
