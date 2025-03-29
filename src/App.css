@@ -41,6 +41,7 @@ body {
 
 .nav-links {
   display: flex;
+  
   list-style: none;
 }
 
@@ -126,7 +127,7 @@ body {
   }
 
   .nav-links a {
-    font-size: 16px; /* Adjust font size for very small screens */
+    font-size: 17px; /* Adjust font size for very small screens */
   }
 
   .nav-links {
