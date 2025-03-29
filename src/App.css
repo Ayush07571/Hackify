@@ -24,11 +24,11 @@ body {
   padding: 15px 30px;
   background-color: #252525;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  position: fixed; /* Fixed position */
-  width: 100%; /* Full width */
-  top: 0; /* Stick to the top */
-  left: 0; /* Ensure no gap on the left side */
-  z-index: 10; /* Ensure it's above other elements */
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 
 .nav-logo {
@@ -36,12 +36,11 @@ body {
   font-weight: bold;
   color: #00cc00;
   text-decoration: none;
-  padding-left: 10px; /* Add left padding for visual balance */
+  padding-left: 10px;
 }
 
 .nav-links {
   display: flex;
-  
   list-style: none;
 }
 
@@ -65,89 +64,111 @@ body {
   display: none; /* Hide by default */
 }
 
+/* Close Button */
+.nav-close {
+  display: none; /* Hide by default */
+}
+
 @media (max-width: 768px) {
   .nav-toggle {
-    display: block; /* Show toggle button for smaller screens */
+    display: block;
     background-color: #1a1a1a;
     color: #00cc00;
-    border: 2px solid #00cc00;
+    border: none;
     border-radius: 5px;
     font-size: 24px;
-    padding: 5px 15px; /* Add spacing between button and boundary */
+    padding: 5px 15px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-right: 10px; /* Add space to the right of the button */
+    margin-right: 10px;
   }
 
   .nav-toggle:hover {
-    background-color: #00cc00; /* Hover effect */
+    background-color: #00cc00;
     color: #1a1a1a;
-    transform: scale(1.1); /* Slight enlargement for interactivity */
+    transform: scale(1.1);
   }
 
   .nav-links {
-    display: none; /* Hide navigation links initially */
+    display: none;
     position: fixed;
     top: 0;
-    left: 0;
+    left: -250px;
     height: 100%;
-    width: 250px; /* Sidebar width */
+    width: 250px;
     background-color: #252525;
-    flex-direction: column; /* Stack links vertically */
+    flex-direction: column;
     padding: 20px;
     box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
-    z-index: 20; /* Place above main content */
+    z-index: 20;
+    transition: left 0.3s ease;
   }
 
   .nav-links.active {
-    display: flex; /* Show navigation links when active */
+    display: flex;
+    left: 0;
   }
 
   .nav-links li {
-    margin: 15px 0; /* Space between links */
+    margin: 15px 0;
   }
 
   .nav-links a {
-    font-size: 18px; /* Adjust font size for readability */
+    font-size: 18px;
     color: #e0e0e0;
     text-decoration: none;
     transition: color 0.3s ease;
   }
 
   .nav-links a:hover {
-    color: #00cc00; /* Highlight link on hover */
+    color: #00cc00;
+  }
+
+  .nav-close {
+    display: block;
+    background: none;
+    border: none;
+    color: #00cc00;
+    font-size: 24px;
+    padding: 10px;
+    text-align: right;
+    cursor: pointer;
+  }
+
+  .nav-close:hover {
+    color: #e0e0e0;
   }
 }
 
 /* Mobile Responsive Design */
 @media (max-width: 480px) {
   .nav-logo {
-    font-size: 18px; /* Further reduce logo size */
+    font-size: 18px;
   }
 
   .nav-links a {
-    font-size: 17px; /* Adjust font size for very small screens */
+    font-size: 17px;
   }
 
   .nav-links {
-    width: 200px; /* Reduce side navbar width for smaller screens */
+    width: 200px;
   }
 
   .nav-toggle {
-    font-size: 20px; /* Adjust size for smaller devices */
+    font-size: 20px;
     padding: 8px 12px;
-    margin-right: 8px; /* Add small gap for button */
+    margin-right: 8px;
   }
 }
 
 /* Add space below navbar in mobile view */
 @media (max-width: 768px) {
   .navbar {
-    margin-bottom: 20px; /* Gap below navbar */
+    margin-bottom: 20px;
   }
 
   .content {
-    padding-top: 10px; /* Adjust spacing above content text */
+    padding-top: 10px;
   }
 }

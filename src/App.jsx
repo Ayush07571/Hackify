@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './Home';
 import Challenges from './Challenges';
@@ -18,8 +18,14 @@ function App() {
 
   // Function to toggle the mobile side navbar
   const toggleMobileNav = () => {
+    console.log("Hamburger icon clicked, toggling mobile nav:", !isMobileNavOpen);
     setIsMobileNavOpen(!isMobileNavOpen);
   };
+
+  // Debug state updates
+  useEffect(() => {
+    console.log("isMobileNavOpen updated:", isMobileNavOpen);
+  }, [isMobileNavOpen]);
 
   return (
     <Router>
@@ -30,16 +36,25 @@ function App() {
           <Link to="/" className="nav-logo">Hackify</Link>
 
           {/* Hamburger Menu (visible on mobile only) */}
-          <span
+          <button
             className="nav-toggle"
             onClick={toggleMobileNav}
-            style={{ display: isMobileNavOpen ? 'block' : undefined }}
+            aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
           >
-            ☰
-          </span>
+            {isMobileNavOpen ? '✕' : '☰'}
+          </button>
 
           {/* Navigation Links */}
           <ul className={`nav-links ${isMobileNavOpen ? 'active' : ''}`}>
+            <li>
+              <button
+                className="nav-close"
+                onClick={() => setIsMobileNavOpen(false)}
+                aria-label="Close navigation menu"
+              >
+                ✕
+              </button>
+            </li>
             <li><Link to="/" onClick={() => setIsMobileNavOpen(false)}>Home</Link></li>
             <li><Link to="/challenges" onClick={() => setIsMobileNavOpen(false)}>Challenges</Link></li>
             <li><Link to="/leaderboard" onClick={() => setIsMobileNavOpen(false)}>Leaderboard</Link></li>
@@ -68,7 +83,5 @@ function App() {
     </Router>
   );
 }
-
-
 
 export default App;
