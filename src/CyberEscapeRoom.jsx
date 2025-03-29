@@ -32,7 +32,6 @@ const easyQuestions = [
   },
 ];
 
-// Medium Questions
 const mediumQuestions = [
   {
     question: 'A stranger calls claiming to be IT support and asks to install remote access software. What do you do?',
@@ -61,7 +60,6 @@ const mediumQuestions = [
   },
 ];
 
-// Hard Questions
 const hardQuestions = [
   {
     question: 'What does a "zero-day exploit" mean?',
@@ -89,17 +87,10 @@ const hardQuestions = [
 // Utility Functions
 // ========================
 
-/**
- * Shuffles the given array using a random sort.
- */
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-/**
- * Generates a fresh set of combined questions by shuffling and slicing
- * from the easy, medium, and hard question sets.
- */
 function generateQuestions() {
   return [
     ...shuffle(easyQuestions).slice(0, 3),
@@ -121,15 +112,12 @@ function CyberEscapeRoom() {
   const [completed, setCompleted] = useState(false);
   const [timeTaken, setTimeTaken] = useState(0);
 
-  // Timer effect that counts down every second until time expires or game is completed.
   useEffect(() => {
     if (timeLeft > 0 && !completed) {
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
+      const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
       return () => clearInterval(timer);
     } else if (timeLeft === 0 && !completed) {
-      setCompleted(true); // End game when time runs out
+      setCompleted(true);
       alert("Time’s up! You failed to escape.");
     }
   }, [timeLeft, completed]);
@@ -139,24 +127,19 @@ function CyberEscapeRoom() {
   };
 
   const handleSubmit = () => {
-    // Check if the selected answer is correct
     const isCorrect =
       selectedAnswer === questions[currentQuestionIndex].correctAnswer;
-    // Calculate the updated correct count synchronously.
     const updatedCorrectCount = isCorrect ? correctCount + 1 : correctCount;
-
     setQuestionsAsked((prev) => prev + 1);
 
     if (isCorrect) {
       setCorrectCount(updatedCorrectCount);
     }
 
-    // End the game if the user reaches 5 correct answers.
     if (updatedCorrectCount >= 5) {
       setCompleted(true);
-      setTimeTaken(120 - timeLeft); // Calculate the time taken.
+      setTimeTaken(120 - timeLeft);
     } else {
-      // Cycle to the next question.
       const nextIndex = (currentQuestionIndex + 1) % questions.length;
       setCurrentQuestionIndex(nextIndex);
       setSelectedAnswer(null);
@@ -164,7 +147,6 @@ function CyberEscapeRoom() {
   };
 
   const restartGame = () => {
-    // Reset state and generate a new set of shuffled questions.
     setQuestions(generateQuestions());
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
@@ -194,7 +176,16 @@ function CyberEscapeRoom() {
             Time Taken: {Math.floor(timeTaken / 60)}:
             {(timeTaken % 60).toString().padStart(2, "0")}
           </p>
-          <div className="button-container">
+          <div
+            className="button-container"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "15px",
+              marginTop: "20px",
+            }}
+          >
             <button onClick={restartGame}>Restart Game</button>
             <a href="/" className="back-button">
               Back to Homepage
@@ -232,7 +223,8 @@ function CyberEscapeRoom() {
           {selectedAnswer && (
             <p
               className={`feedback ${
-                selectedAnswer === questions[currentQuestionIndex].correctAnswer
+                selectedAnswer ===
+                questions[currentQuestionIndex].correctAnswer
                   ? "correct"
                   : "incorrect"
               }`}
@@ -242,8 +234,16 @@ function CyberEscapeRoom() {
                 : "Wrong Answer!"}
             </p>
           )}
-
-          <div className="button-container">
+          <div
+            className="button-container"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "15px",
+              marginTop: "20px",
+            }}
+          >
             <button onClick={handleSubmit} disabled={!selectedAnswer}>
               Submit
             </button>
