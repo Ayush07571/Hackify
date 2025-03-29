@@ -19,13 +19,42 @@ function App() {
   // Function to toggle the mobile side navbar
   const toggleMobileNav = () => {
     console.log("Hamburger icon clicked, toggling mobile nav:", !isMobileNavOpen);
-    setIsMobileNavOpen(!isMobileNavOpen);
+    setIsMobileNavOpen((prev) => {
+      const newState = !prev;
+      console.log("Setting isMobileNavOpen to:", newState);
+      return newState;
+    });
   };
 
   // Debug state updates
   useEffect(() => {
     console.log("isMobileNavOpen updated:", isMobileNavOpen);
   }, [isMobileNavOpen]);
+
+  // Debug component mount and viewport width
+  useEffect(() => {
+    console.log("App component mounted or re-rendered");
+    console.log("Viewport width:", window.innerWidth);
+  }, []);
+
+  // Debug nav-links styles
+  useEffect(() => {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks) {
+      console.log("nav-links element found");
+      const styles = window.getComputedStyle(navLinks);
+      console.log("nav-links display:", styles.display);
+      console.log("nav-links left:", styles.left);
+      console.log("nav-links z-index:", styles.zIndex);
+      console.log("nav-links background-color:", styles.backgroundColor);
+    } else {
+      console.log("nav-links element NOT found");
+    }
+  }, [isMobileNavOpen]);
+
+  // Debug nav-links class
+  const navLinksClass = `nav-links ${isMobileNavOpen ? 'active' : ''}`;
+  console.log("Nav links class:", navLinksClass);
 
   return (
     <Router>
@@ -38,14 +67,17 @@ function App() {
           {/* Hamburger Menu (visible on mobile only) */}
           <button
             className="nav-toggle"
-            onClick={toggleMobileNav}
+            onClick={() => {
+              console.log("Button clicked directly");
+              toggleMobileNav();
+            }}
             aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
           >
             {isMobileNavOpen ? '✕' : '☰'}
           </button>
 
           {/* Navigation Links */}
-          <ul className={`nav-links ${isMobileNavOpen ? 'active' : ''}`}>
+          <ul className={navLinksClass} onClick={() => console.log("Current nav-links class:", navLinksClass)}>
             <li>
               <button
                 className="nav-close"
