@@ -1,11 +1,13 @@
 .hero {
   text-align: center;
   padding: 50px 20px;
+  position: relative;
+  z-index: 1; /* Ensure it’s below the nav-links */
 }
 
 .hero h1 {
   font-size: 48px;
-  color:  #ffffff;
+  color: #ffffff;
   /* text-shadow: 0 0 10px rgba(0, 204, 0, 0.5); */
 }
 
@@ -19,6 +21,8 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
+  position: relative;
+  z-index: 1; /* Ensure it’s below the nav-links */
 }
 
 .challenge-card {
@@ -28,6 +32,7 @@
   border-radius: 10px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1; /* Ensure it’s below the nav-links */
 }
 
 .challenge-card:hover {
@@ -44,6 +49,7 @@
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 12px;
+  z-index: 2; /* Still below the nav-links (z-index: 1000) */
 }
 
 .challenge-icon {
@@ -70,10 +76,10 @@
   color: #1a1a1a;
   text-decoration: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .start-btn:hover {
   background-color: green;
-  color: #1a1a1a; /* Explicitly set to remain visible */
+  color: #1a1a1a;
 }
