@@ -6,13 +6,10 @@
   
   body {
     font-family: 'Arial', sans-serif;
-    background-color: white;
+    background-color: #1a1a1a;
     color: #e0e0e0;
   }
 
-  .heading{
-    color:blue;
-  }
   
   .app {
     min-height: 100vh;
